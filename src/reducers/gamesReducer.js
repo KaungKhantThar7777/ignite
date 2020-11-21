@@ -1,13 +1,13 @@
 const initialState = {
-  popular: [],
-  new: [],
-  upcoming: [],
-  search: [],
+  populars: [],
+  news: [],
+  upcomings: [],
+  searched: [],
 };
 
 const gamesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_POPULAR_GAMES":
+    case "FETCH_GAMES":
       return { ...state, ...action.payload };
 
     default:

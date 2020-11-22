@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import rootReducer from "./reducers";
+import { BrowserRouter } from "react-router-dom";
 
 const store = createStore(
   rootReducer,
@@ -17,7 +18,9 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

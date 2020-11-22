@@ -1,42 +1,67 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { StyledContainer } from "../pages/HomePage";
+import { smallImage } from "../util";
+import Loader from "./Loader";
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
+  const history = useHistory();
   const { game, screen } = useSelector(state => state.detail);
 
-  if (screen.length === 0) {
-    return <h1>Loading...</h1>;
-  }
+  const exitDetailHandler = e => {
+    const element = e.target;
+    if (element.classList.contains("shadow")) {
+      document.body.style.overflow = "auto";
+      history.push("/");
+    }
+  };
   return (
-    <StyledCardShow>
-      <StyledDetail>
-        <StyledStats>
-          <div className="rating">
-            <h3>{game.name}</h3>
-            <p>Rating: {game.rating}</p>
-          </div>
-          <div className="info">
-            <h3>Platforms</h3>
-            <StyledPlatforms>
-              {game.platforms.map(data => (
-                <h3 key={data.platform.id}>{data.platform.name}</h3>
+    <StyledCardShow className="shadow" onClick={exitDetailHandler}>
+      <StyledDetail layoutId={pathId}>
+        {screen.length === 0 ? (
+          <StyledContainer>
+            <Loader />
+          </StyledContainer>
+        ) : (
+          <>
+            <StyledStats>
+              <div className="rating">
+                <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
+                <p>Rating: {game.rating}</p>
+              </div>
+              <div className="info">
+                <h3>Platforms</h3>
+                <StyledPlatforms>
+                  {game.platforms.map(data => (
+                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                  ))}
+                </StyledPlatforms>
+              </div>
+            </StyledStats>
+            <StyledMedia>
+              <motion.img
+                layoutId={`image ${pathId}`}
+                src={smallImage(game.background_image, 1280)}
+                alt={game.name}
+              />
+            </StyledMedia>
+
+            <StyledDescription>{game.description_raw}</StyledDescription>
+
+            <div className="gallery">
+              {screen.map(screen => (
+                <img
+                  key={screen.id}
+                  src={smallImage(screen.image, 1280)}
+                  alt={game.name}
+                />
               ))}
-            </StyledPlatforms>
-          </div>
-        </StyledStats>
-        <StyledMedia>
-          <img src={game.background_image} alt={game.name} />
-        </StyledMedia>
-
-        <StyledDescription>{game.description_raw}</StyledDescription>
-
-        <div className="gallery">
-          {screen.map(screen => (
-            <img key={screen.id} src={screen.image} alt={game.name} />
-          ))}
-        </div>
+            </div>
+          </>
+        )}
       </StyledDetail>
     </StyledCardShow>
   );

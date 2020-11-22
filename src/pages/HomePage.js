@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { loadGames } from "../actions/gamesAction";
+import GameDetail from "../components/GameDetail";
 import Games from "../components/Games";
 
 const HomePage = () => {
@@ -17,6 +18,7 @@ const HomePage = () => {
   }
   return (
     <StyledGameList>
+      <GameDetail />
       <Games title="Popular Games" games={populars} />
       <Games title="New Games" games={news} />
       <Games title="Upcoming Games" games={upcomings} />

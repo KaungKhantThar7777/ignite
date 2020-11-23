@@ -8,6 +8,7 @@ import { fadeIn } from "../animation";
 import GameDetail from "../components/GameDetail";
 import Games from "../components/Games";
 import Loader from "../components/Loader";
+import Nav from "../components/Nav";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const HomePage = () => {
   return (
     <StyledGameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
+        <Nav />
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
         </AnimatePresence>

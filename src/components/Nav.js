@@ -69,7 +69,7 @@ const StyledNav = styled(motion.div)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 0rem;
     input {
       font-size: 1rem;
       margin-top: 0px;

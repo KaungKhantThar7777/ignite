@@ -50,11 +50,11 @@ const GameDetail = ({ pathId }) => {
     const stars = [];
     for (let i = 1; i <= 5; ++i) {
       if (i <= game.rating) {
-        stars.push(<FaStar size={22} color="#ffd500" />);
-      } else if (game.rating - i <= 0.5) {
-        stars.push(<FaStarHalfAlt size={22} color="#ffd500" />);
+        stars.push(<FaStar key={i} size={22} color="#ffd500" />);
+      } else if (game.rating - i >= 0.5) {
+        stars.push(<FaStarHalfAlt key={i} size={22} color="#ffd500" />);
       } else {
-        stars.push(<FaRegStar size={22} color="#ffd500" />);
+        stars.push(<FaRegStar key={i} size={22} color="#ffd500" />);
       }
     }
     return stars;

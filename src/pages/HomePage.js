@@ -17,7 +17,9 @@ const HomePage = () => {
   const { pathname } = useLocation();
   const pathId = pathname.split("/")[2];
 
-  const { populars, news, upcomings } = useSelector(state => state.games);
+  const { populars, news, upcomings, searched } = useSelector(
+    state => state.games
+  );
   if (populars.length === 0) {
     return (
       <StyledContainer>
@@ -31,6 +33,9 @@ const HomePage = () => {
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
         </AnimatePresence>
+        {searched.length !== 0 && (
+          <Games title="Searched Games" games={searched} />
+        )}
         <Games title="Popular Games" games={populars} />
         <Games title="New Games" games={news} />
         <Games title="Upcoming Games" games={upcomings} />

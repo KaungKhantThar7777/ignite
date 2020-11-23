@@ -7,6 +7,15 @@ import { StyledContainer } from "../pages/HomePage";
 import { smallImage } from "../util";
 import Loader from "./Loader";
 
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+
 const GameDetail = ({ pathId }) => {
   const history = useHistory();
   const { game, screen } = useSelector(state => state.detail);
@@ -17,6 +26,38 @@ const GameDetail = ({ pathId }) => {
       document.body.style.overflow = "auto";
       history.push("/");
     }
+  };
+
+  //GET PLATFORM IMAGES
+  const getPlatform = platform => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
+
+  const getStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; ++i) {
+      if (i <= game.rating) {
+        stars.push(<FaStar size={22} color="#ffd500" />);
+      } else if (game.rating - i <= 0.5) {
+        stars.push(<FaStarHalfAlt size={22} color="#ffd500" />);
+      } else {
+        stars.push(<FaRegStar size={22} color="#ffd500" />);
+      }
+    }
+    return stars;
   };
   return (
     <StyledCardShow className="shadow" onClick={exitDetailHandler}>
@@ -31,12 +72,17 @@ const GameDetail = ({ pathId }) => {
               <div className="rating">
                 <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                {getStars()}
               </div>
               <div className="info">
                 <h3>Platforms</h3>
                 <StyledPlatforms>
                   {game.platforms.map(data => (
-                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    <img
+                      key={data.platform.id}
+                      src={getPlatform(data.platform.name)}
+                      alt="platform"
+                    />
                   ))}
                 </StyledPlatforms>
               </div>
@@ -106,6 +152,9 @@ const StyledStats = styled(motion.div)`
   align-items: center;
   .info {
     text-align: center;
+  }
+  svg {
+    margin: 3px;
   }
 `;
 

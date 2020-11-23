@@ -4,6 +4,7 @@ import styled from "styled-components";
 import logo from "../img/logo.svg";
 import { useDispatch } from "react-redux";
 import { searchGames } from "../actions/gamesAction";
+import { fadeIn } from "../animation";
 
 const Nav = () => {
   const [text, setText] = useState("");
@@ -23,7 +24,7 @@ const Nav = () => {
     dispatch({ type: "CLEAR_SEARCH_GAMES" });
   };
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <StyledLogo onClick={clearSearch}>
         <img src={logo} alt="logo" onClick={clearInputText} />
         <h1>Ignite</h1>
@@ -55,6 +56,7 @@ const StyledNav = styled(motion.div)`
     outline: none;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
   }
+
   button {
     font-size: 1.5rem;
     color: white;
@@ -62,6 +64,20 @@ const StyledNav = styled(motion.div)`
     border: none;
     background-color: #ff7676;
     cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    input {
+      font-size: 1rem;
+      margin-top: 0px;
+      width: 60%;
+    }
+    button {
+      font-size: 1rem;
+    }
   }
 `;
 

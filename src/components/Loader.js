@@ -20,7 +20,7 @@ const StyledLoader = styled.div`
     .bar {
       width: 10px;
       height: 5px;
-	  background-color:#2a979c;
+	    background-color:#2a979c;
       margin: 2px;
       animation: bar 1s infinite linear;
 

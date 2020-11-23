@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { loadGames } from "../actions/gamesAction";
+import { fadeIn } from "../animation";
 import GameDetail from "../components/GameDetail";
 import Games from "../components/Games";
 import Loader from "../components/Loader";
@@ -28,7 +29,7 @@ const HomePage = () => {
     );
   }
   return (
-    <StyledGameList>
+    <StyledGameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
@@ -48,6 +49,12 @@ const StyledGameList = styled(motion.div)`
   padding: 0rem 5rem;
   h2 {
     padding: 4rem 0rem;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0rem 2rem;
+    h2 {
+      padding: 2rem;
+    }
   }
 `;
 export const StyledContainer = styled(motion.div)`

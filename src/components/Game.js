@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { loadDetails } from "../actions/detailAction";
+import { popUp } from "../animation";
 import { smallImage } from "../util";
 
 const Game = ({ id, name, released, background_image }) => {
@@ -14,7 +15,13 @@ const Game = ({ id, name, released, background_image }) => {
     document.body.style.overflow = "hidden";
   };
   return (
-    <StyledGame onClick={loadDetailsHandler} layoutId={`${id}`}>
+    <StyledGame
+      variants={popUp}
+      initial="hidden"
+      animage="show"
+      onClick={loadDetailsHandler}
+      layoutId={`${id}`}
+    >
       <Link to={`/game/${id}`}>
         <motion.h3 layoutId={`title ${id}`}>{name}</motion.h3>
         <p>{released}</p>
@@ -35,6 +42,7 @@ const StyledGame = styled(motion.div)`
   border-radius: 1rem;
   cursor: pointer;
   overflow: hidden;
+
   img {
     width: 100%;
     height: 40vh;
